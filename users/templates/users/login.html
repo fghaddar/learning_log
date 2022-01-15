@@ -1,0 +1,22 @@
+{% extends "learning_logs/base.html" %}
+
+{% block header %}
+        <h1>Login to your account.</h1>
+{% endblock header %}
+
+{% block content %} 
+
+    {% if form.errors %}                                                                    <!--- if the forms error is set then we'll assume it's wrong user and pass info   --->
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'users:login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}                                                                     <!--- The login view sends a form to the template -->
+
+        <button name="submit">log in</button>                                               
+
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />         <!--- If login is successful, redirect to the home page -->
+    </form>
+
+{% endblock content %}

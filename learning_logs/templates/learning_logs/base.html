@@ -1,0 +1,87 @@
+{% load bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <title>Learning Log</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+    <body>
+        <div id="container">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+                <a class="col-1 navbar-brand" href="{% url 'learning_logs:index' %}" id="theImg">
+                    <img src="{% static 'journal.svg' %}"  class="float-end d-block" alt="My image" width="50px" height="50px"> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-1` collapse navbar-collapse collapsibleNavbar">
+                    <a class="nav-link" id="nav" href="{% url 'learning_logs:topics' %}">View Topics</a>
+                </div>
+                <div class="col-6 text-center" style="color:white;">
+                    <div id="pageHeader"> {% block header %}{% endblock header %} </div>
+                </div>
+                <div class="col-2 justify-content-center collapse navbar-collapse collapsibleNavbar" >
+                    {% if user.is_authenticated %}
+                        <div style="color:white;"> Hello, {{ user.username }}.</div>
+                        <a id="nav" href="{% url 'users:logout' %}">Log out</a>
+                    {% else %}
+                        <a class="nav-link" id="nav" href="{% url 'users:register' %}">Register</a>
+                        <a class="nav-link" id="nav" href="{% url 'users:login' %}">Log in</a>
+                    {% endif %}
+                </div>
+            </nav>
+
+            <div class="container-fluid" id="margin">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 align-middle" id="left">
+                        <div class="card">
+                            <div class="card-header"><h2>This project was built using:</h2></div>
+                            <div class="card-body">
+                                <p> This is a personal project that I worked on in my spare time.
+                                This is not a school-based project. All work done on this was using my own time.</p>
+                                This project was built using:
+                                <ul>
+                                    <li>Django</li>
+                                    <li>SQL-Lite</li>
+                                    <li>Bootstrap5</li>
+                                    <li>CSS</li>
+                                </ul>
+                                It is deployed on heroku.
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/fghaddar/learningLog">Link to project on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" id="center">
+                        <div>
+                            {% block content %}{% endblock content %}
+                        </div>
+                    </div>
+                    <div class="col-lg-3" id="right">
+                        <div class="card">
+                            <div class="card-header"><h2>About Me:</h2></div>
+                            <div class="card-body">
+                                <p> Welcome to my site! My name is Fadl Ghaddar and I am an aspiring web developer. <br>
+                                    Majoring in Computer Science, I am in my final year attending Cal State Uni - M.B.</p>
+                                    <img src="{% static 'Fadl.png' %}"  class="m-auto" alt="My image">
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/fghaddar?tab=repositories">Check out all my repositories on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary" id="footer">
+                <p> Author: Fadl Ghaddar
+                <br> This website is built for educational purposes. </p>
+            </div>
+        </div>
+    </body>

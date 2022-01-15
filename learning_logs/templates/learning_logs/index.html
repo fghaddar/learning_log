@@ -1,0 +1,37 @@
+{% extends "learning_logs/base.html" %}                                                 <!-- Code for inherting from a parent: use extends, then indicate the path of html file -->
+
+{% block header %}
+        <h1>Track your learning.</h1>
+{% endblock header %}
+
+{% block content %}
+    <div>
+        <h2>
+            This is a learning journal. <br> <br> 
+        </h2>
+        <h5>
+            <ul>
+                <li>
+                    {% if user.is_authenticated %}
+                        Welcome to your learning journal! View your list of
+                        <a href="{% url 'learning_logs:topics' %}">topics</a>
+                        and enter or edit entries for whichever topic.
+                    {% else %}
+                        <a style="text-decoration: none; "href="{% url 'users:register' %}"> Register </a> or
+                        <a style="text-decoration: none;" href="{% url 'users:login' %}"> log-in </a>
+                        into your account to access your private 
+                        learning journal. 
+                    {% endif %}
+                </li> <br><br>
+                <li>
+                    Whenever you learn something new about a topic, make an entry
+                    sumarizing what you've learned.
+                </li> <br><br>
+                <li>
+                    Make the screen smaller to test the responsiveness of this website. On every page: the navbar should collapse, the page header should disappear,
+                    and the columns should stack over each other
+                </li>
+            </ul>
+        </h5>
+    </div>
+{% endblock content %}

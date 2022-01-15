@@ -1,0 +1,40 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block header %}
+    <h2>Topic in question: {{ topic }} </h2>
+{% endblock header %}
+
+{% block content %} 
+<h2>Topic: {{ topic }}</h2>
+<h4>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a new entry</a>
+</h4>
+    <hr>
+    <h5>Entries: </h5>
+    <hr>
+    <ul>
+        {% for entry in entries %}
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h6>
+                        {{ entry.date_added|date:'M d, Y H:i' }}                                <!-- The verical line '|' is a template filter: it modifies the valu/format in the template variable -->
+                        <small>
+                            <a href="{% url 'learning_logs:edit_entry' entry.id %}">
+                                Edit Entry
+                            </a>
+                        </small>
+                    </h6>
+                </div>
+
+                <div class="panel-body">
+                    <p> {{ entry.text|linebreaks }} </p>                                        <!-- linebreaks ensures that the long text entries include line breaks -->
+                </div>
+
+            </div>
+        <hr>
+        {% empty %} 
+            There are no entries for this topic yet.
+        {% endfor %}
+
+{% endblock content %}
