@@ -157,8 +157,9 @@ if os.getcwd() == '/app':                                                       
     ALLOWED_HOSTS = ['*']                                                       # Ensures that Django will serve the project from Heroku’s URL
 
     # Static asset configuration
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))                       # Set up the project to serve static files correctly on Heroku
-    STATIC_ROOT = 'staticfiles'
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))                       # Set up the project to serve static files correctly on Heroku
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
     STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'static'),
     )
